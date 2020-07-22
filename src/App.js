@@ -20,6 +20,7 @@ export default function App() {
     difficulty,
     score,
     currentCountry,
+    countriesLeft,
     answers,
     streak
   } = state;
@@ -30,6 +31,7 @@ export default function App() {
         <Game
           fStatus={fStatus}
           currentCountry={currentCountry}
+          countriesLeft={countriesLeft}
           streak={streak}
           dispatch={dispatch}
         />

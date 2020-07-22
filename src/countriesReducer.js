@@ -77,6 +77,7 @@ function countriesReducer(state, action) {
         ]
       };
     case "TIMES_UP":
+    case "ALL_COUNTRIES_PLAYED":
       return {
         ...state,
         gStatus: gameStatus.RESULTS

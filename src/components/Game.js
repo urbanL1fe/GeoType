@@ -5,7 +5,13 @@ import { fetchStatus } from "../utils";
 import Question from "./Question";
 import Timer from "./Timer";
 
-export default function Game({ fStatus, currentCountry, streak, dispatch }) {
+export default function Game({
+  fStatus,
+  currentCountry,
+  countriesLeft,
+  streak,
+  dispatch
+}) {
   const [inputVal, setInputVal] = useState("");
 
   useGetCountries(dispatch);
@@ -38,6 +44,11 @@ export default function Game({ fStatus, currentCountry, streak, dispatch }) {
             onChange={handleChange}
             onKeyPress={handleKeyPress}
           />
+          {countriesLeft.length > 0 ? (
+            <p>Countries Left: {countriesLeft.length}</p>
+          ) : (
+            dispatch({ type: "ALL_COUNTRIES_PLAYED" })
+          )}
         </>
       )}
     </>
