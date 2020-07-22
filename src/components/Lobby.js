@@ -1,4 +1,6 @@
 import React from "react";
+import ContinentsSelector from "./ContinentsSelector";
+import { populationPlusPerDifficulty } from "../utils";
 import "../styles.css";
 
 function Lobby({ dispatch }) {
@@ -12,14 +14,15 @@ function Lobby({ dispatch }) {
       <h2>What's the Capital?</h2>
       <p>Select game difficulty</p>
       <button value="easy" onClick={handleDifficultyChange}>
-        Easy
+        Easy(>{populationPlusPerDifficulty.EASY} people)
       </button>
       <button value="normal" onClick={handleDifficultyChange}>
-        Normal
+        Normal(>{populationPlusPerDifficulty.NORMAL} people)
       </button>
       <button value="hard" onClick={handleDifficultyChange}>
-        Hard
+        Hard(All countries)
       </button>
+      <ContinentsSelector />
     </>
   );
 }

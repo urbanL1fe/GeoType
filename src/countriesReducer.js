@@ -56,8 +56,9 @@ function countriesReducer(state, action) {
       );
       const scoreChange = isAnswerCorrect ? 10 : pointsToLose;
       const indexToRemove = state.countriesLeft.indexOf(state.currentCountry);
-      const newCountriesArr = state.countriesLeft;
-      newCountriesArr.splice(indexToRemove, 1);
+      const newCountriesArr = state.countriesLeft.filter(
+        (e, index) => index !== indexToRemove
+      );
       const newCurrentCountry =
         newCountriesArr[randomPicker(newCountriesArr.length)];
       return {

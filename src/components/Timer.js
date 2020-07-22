@@ -18,6 +18,7 @@ function Timer({ dispatch, streak }) {
     let timer = setTimeout(function() {
       setCounter(counter - 1);
     }, 1000);
+    // eslint-disable-next-line no-unused-expressions
     counter > 0 && timer;
     hasStreakUpdateHappened.current = false;
     counter === 0 && dispatch({ type: "TIMES_UP" });

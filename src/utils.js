@@ -35,13 +35,13 @@ function filterCountriesByDifficulty(countriesArr, difficulty) {
     case "easy":
       // >25000000
       countriesArrWithDifficulty = countriesArr.filter(el => {
-        return el.population >= 25000000;
+        return el.population >= populationPlusPerDifficulty.EASY;
       });
       break;
     case "normal":
       //440000
       countriesArrWithDifficulty = countriesArr.filter(el => {
-        return el.population >= 440000;
+        return el.population >= populationPlusPerDifficulty.NORMAL;
       });
       break;
     default:
@@ -71,6 +71,13 @@ const gameDifficulty = {
 };
 Object.freeze(gameDifficulty);
 
+const populationPlusPerDifficulty = {
+  EASY: 25000000,
+  NORMAL: 440000,
+  HARD: 0
+};
+Object.freeze(populationPlusPerDifficulty);
+
 export {
   pointsToDecrease,
   randomPicker,
@@ -78,5 +85,6 @@ export {
   gameStatus,
   gameDifficulty,
   filterCountriesByDifficulty,
-  bonusTimeFromStreak
+  bonusTimeFromStreak,
+  populationPlusPerDifficulty
 };
