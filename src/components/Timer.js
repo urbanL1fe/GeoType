@@ -1,26 +1,27 @@
 import React, { useEffect, useState, useRef } from "react";
+import { bonusTimeFromStreak } from "../utils";
 import "../styles.css";
 
 function Timer({ dispatch, streak }) {
   const [counter, setCounter] = useState(60);
-  const [hasStreakUpdateHappened, setHasStreakUpdateHappened] = useState(false);
-  // Thewritika prosthetei 10 sto timer otan to streak ginei 3
+  const hasStreakUpdateHappened = useRef(false);
+
   useEffect(() => {
-    console.log("streak");
-    if (streak === 3 && hasStreakUpdateHappened === false) {
-      setHasStreakUpdateHappened(true);
-      setCounter(counter => counter + 10);
+    const bonusTime = bonusTimeFromStreak(streak);
+    if (bonusTime !== null && hasStreakUpdateHappened.current === false) {
+      hasStreakUpdateHappened.current = true;
+      setCounter(counter => counter + bonusTime);
     }
   }, [streak]);
-  // afairei 1 ap to timer kathe second
+
   useEffect(() => {
-    counter > 0 &&
-      setTimeout(function() {
-        if (!hasStreakUpdateHappened) {
-          setCounter(counter - 1);
-        }
-      }, 1000);
+    let timer = setTimeout(function() {
+      setCounter(counter - 1);
+    }, 1000);
+    counter > 0 && timer;
+    hasStreakUpdateHappened.current = false;
     counter === 0 && dispatch({ type: "TIMES_UP" });
+    return () => clearTimeout(timer);
   }, [counter, dispatch]);
 
   return <p>{counter}</p>;

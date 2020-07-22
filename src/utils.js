@@ -11,6 +11,24 @@ function pointsToDecrease(num) {
   return -(3 - Math.round(roundFirstDecimal(num) / (1 / 6)));
 }
 
+function bonusTimeFromStreak(streak) {
+  let bonusTime;
+  switch (streak) {
+    case 3:
+      bonusTime = 3;
+      break;
+    case 5:
+      bonusTime = 5;
+      break;
+    case 10:
+      bonusTime = 10;
+      break;
+    default:
+      bonusTime = null;
+  }
+  return bonusTime;
+}
+
 function filterCountriesByDifficulty(countriesArr, difficulty) {
   let countriesArrWithDifficulty;
   switch (difficulty) {
@@ -59,5 +77,6 @@ export {
   fetchStatus,
   gameStatus,
   gameDifficulty,
-  filterCountriesByDifficulty
+  filterCountriesByDifficulty,
+  bonusTimeFromStreak
 };

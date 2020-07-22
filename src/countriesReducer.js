@@ -58,7 +58,6 @@ function countriesReducer(state, action) {
       const indexToRemove = state.countriesLeft.indexOf(state.currentCountry);
       const newCountriesArr = state.countriesLeft;
       newCountriesArr.splice(indexToRemove, 1);
-      console.log(newCountriesArr.length);
       const newCurrentCountry =
         newCountriesArr[randomPicker(newCountriesArr.length)];
       return {
