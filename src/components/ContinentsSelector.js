@@ -39,7 +39,7 @@ function ContinentsSelector({ checkedItems, onChange }) {
           />
         </label>
       ))}
-      <p>Don't check anything for all continents</p>
+      <p>(Don't check anything for all continents)</p>
     </div>
   );
 }
