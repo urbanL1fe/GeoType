@@ -50,6 +50,13 @@ function filterCountriesByDifficulty(countriesArr, difficulty) {
   return countriesArrWithDifficulty;
 }
 
+function filterCountriesByContinents(countriesArr, continentsArr) {
+  if (continentsArr.length === 0) return countriesArr;
+  return countriesArr.filter(country => {
+    return continentsArr.includes(country.region);
+  });
+}
+
 const fetchStatus = {
   LOADING: "loading",
   SUCCESS: "success",
@@ -85,6 +92,7 @@ export {
   gameStatus,
   gameDifficulty,
   filterCountriesByDifficulty,
+  filterCountriesByContinents,
   bonusTimeFromStreak,
   populationPlusPerDifficulty
 };

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles.css";
 import Checkbox from "./Checkbox";
 
-function ContinentsSelector() {
-  const [checkedItems, setCheckedItems] = useState({});
+function ContinentsSelector({ checkedItems, onChange }) {
   const checkboxes = [
     {
       name: "Africa",
@@ -11,7 +10,7 @@ function ContinentsSelector() {
       label: "Africa"
     },
     {
-      name: "America",
+      name: "Americas",
       key: "AmericaCheckBox",
       label: "America"
     },
@@ -27,13 +26,6 @@ function ContinentsSelector() {
     }
   ];
 
-  function handleChange(event) {
-    setCheckedItems({
-      ...checkedItems,
-      [event.target.name]: event.target.checked
-    });
-  }
-
   return (
     <div>
       <p>What continents do you want to play?</p>
@@ -42,12 +34,12 @@ function ContinentsSelector() {
           {item.name}
           <Checkbox
             name={item.name}
-            checked={checkedItems[item.name]}
-            onChange={handleChange}
+            checked={checkedItems.includes(item.name)}
+            onChange={onChange}
           />
         </label>
       ))}
-      <p>Don't check anything for the real deal(all continents)</p>
+      <p>Don't check anything for all continents</p>
     </div>
   );
 }

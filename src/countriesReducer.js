@@ -3,7 +3,8 @@ import {
   gameStatus,
   randomPicker,
   pointsToDecrease,
-  filterCountriesByDifficulty
+  filterCountriesByDifficulty,
+  filterCountriesByContinents
 } from "./utils";
 import stringSimilarity from "string-similarity";
 
@@ -11,6 +12,7 @@ const initialCountriesReducerState = {
   countriesLeft: [],
   answers: [],
   difficulty: "",
+  continentsInPlay: [],
   fStatus: fetchStatus.LOADING,
   gStatus: gameStatus.PREGAME,
   errorMessage: "",
@@ -31,12 +33,18 @@ function countriesReducer(state, action) {
         action.countriesArray,
         state.difficulty
       );
+      const countriesFromPickedContinents = filterCountriesByContinents(
+        countriesWithDifficulty,
+        state.continentsInPlay
+      );
       const firstCountry =
-        countriesWithDifficulty[randomPicker(countriesWithDifficulty.length)];
+        countriesFromPickedContinents[
+          randomPicker(countriesFromPickedContinents.length)
+        ];
       return {
         ...state,
         fStatus: fetchStatus.SUCCESS,
-        countriesLeft: countriesWithDifficulty,
+        countriesLeft: countriesFromPickedContinents,
         currentCountry: firstCountry
       };
     case "FETCH_FAILED":
@@ -87,6 +95,7 @@ function countriesReducer(state, action) {
       return {
         ...state,
         difficulty: action.difficulty,
+        continentsInPlay: action.continentsInPlay,
         gStatus: gameStatus.PLAYING
       };
     default:
