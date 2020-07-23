@@ -22,7 +22,6 @@ export default function Game({
 
   useEffect(() => {
     SpeechRecognition.startListening({ continuous: true });
-    console.log("started to listen");
   }, [voiceCommand]);
 
   const commands = [
@@ -47,7 +46,6 @@ export default function Game({
 
   const handleChange = e => {
     setInputVal(e.target.value);
-    console.log("changed");
   };
   const handleKeyPress = e => {
     if (e.key === "Enter") {
@@ -79,6 +77,10 @@ export default function Game({
           ) : (
             dispatch({ type: "ALL_COUNTRIES_PLAYED" })
           )}
+          <p>
+            If you use voice command, say the city and "Go" to submit and then
+            "Reset" before saying the next one
+          </p>
         </>
       )}
     </>
