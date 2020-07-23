@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles.css";
+import SpeechRecognition, {
+  useSpeechRecognition
+} from "react-speech-recognition";
 import { useGetCountries } from "../useGetCountries";
 import { fetchStatus } from "../utils";
 import Question from "./Question";
@@ -13,11 +16,38 @@ export default function Game({
   dispatch
 }) {
   const [inputVal, setInputVal] = useState("");
+  const [voiceCommand, setVoiceCommand] = useState("");
 
   useGetCountries(dispatch);
 
+  useEffect(() => {
+    SpeechRecognition.startListening({ continuous: true });
+    console.log("started to listen");
+  }, [voiceCommand]);
+
+  const commands = [
+    {
+      command: "* go",
+      callback: capital => {
+        setVoiceCommand(capital);
+        dispatch({ type: "INPUT_SUBMITTED", inputValue: capital });
+      }
+    },
+    {
+      command: "reset",
+      callback: () => {
+        SpeechRecognition.stopListening();
+        resetTranscript();
+        setVoiceCommand("");
+      }
+    }
+  ];
+
+  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+
   const handleChange = e => {
     setInputVal(e.target.value);
+    console.log("changed");
   };
   const handleKeyPress = e => {
     if (e.key === "Enter") {
@@ -39,7 +69,7 @@ export default function Game({
           <Question country={currentCountry} />
           <input
             type="text"
-            value={inputVal}
+            value={inputVal || voiceCommand}
             placeholder="type city"
             onChange={handleChange}
             onKeyPress={handleKeyPress}
