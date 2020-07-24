@@ -10,21 +10,15 @@ function roundFirstDecimal(num) {
 function pointsToDecrease(num) {
   return -(3 - Math.round(roundFirstDecimal(num) / (1 / 6)));
 }
-
 function bonusTimeFromStreak(streak) {
   let bonusTime;
-  switch (streak) {
-    case 3:
-      bonusTime = 3;
-      break;
-    case 5:
-      bonusTime = 5;
-      break;
-    case 10:
-      bonusTime = 10;
-      break;
-    default:
-      bonusTime = null;
+  let bonusPointsinStreak = [3, 5, 10];
+  if (bonusPointsinStreak.includes(streak)) {
+    bonusTime = streak;
+  } else if (streak > 10 && streak % 5 === 0) {
+    bonusTime = 10;
+  } else {
+    bonusTime = null;
   }
   return bonusTime;
 }
