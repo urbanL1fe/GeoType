@@ -55,9 +55,10 @@ export default function Game({
           ) : (
             dispatch({ type: "ALL_COUNTRIES_PLAYED" })
           )}
+          <p>Type the city name and hit 'Enter'</p>
           <p>
-            If you use voice command, say the city and "Go" to submit and then
-            "Reset" before saying the next one
+            If you don't want to type and you are visiting from chrome, tell the
+            city name after allowing mic access
           </p>
         </>
       )}
