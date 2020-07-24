@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles.css";
-import SpeechRecognition, {
-  useSpeechRecognition
-} from "react-speech-recognition";
 import { useGetCountries } from "../useGetCountries";
+import useVoiceTyping from "../useVoiceTyping";
 import { fetchStatus } from "../utils";
 import Question from "./Question";
 import Timer from "./Timer";
@@ -16,33 +14,8 @@ export default function Game({
   dispatch
 }) {
   const [inputVal, setInputVal] = useState("");
-  const [voiceCommand, setVoiceCommand] = useState("");
-
+  const voiceCommand = useVoiceTyping(dispatch);
   useGetCountries(dispatch);
-
-  useEffect(() => {
-    SpeechRecognition.startListening({ continuous: true });
-  }, [voiceCommand]);
-
-  const commands = [
-    {
-      command: "* go",
-      callback: capital => {
-        setVoiceCommand(capital);
-        dispatch({ type: "INPUT_SUBMITTED", inputValue: capital });
-      }
-    },
-    {
-      command: "reset",
-      callback: () => {
-        SpeechRecognition.stopListening();
-        resetTranscript();
-        setVoiceCommand("");
-      }
-    }
-  ];
-
-  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
 
   const handleChange = e => {
     setInputVal(e.target.value);
