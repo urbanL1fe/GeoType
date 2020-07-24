@@ -2,34 +2,42 @@ import React, { useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition
 } from "react-speech-recognition";
+import stringSimilarity from "string-similarity";
 
-function useVoiceTyping(dispatch) {
+function useVoiceTyping(dispatch, setInputVal, currentCountry) {
   const [voiceCommand, setVoiceCommand] = useState("");
 
   useEffect(() => {
     SpeechRecognition.startListening({ continuous: true });
-  }, [voiceCommand]);
+    voiceCommand !== "" &&
+      dispatch({ type: "INPUT_SUBMITTED", inputValue: voiceCommand });
+    setTimeout(function() {
+      SpeechRecognition.stopListening();
+      resetTranscript();
+      setVoiceCommand("");
+      setInputVal("");
+    }, 500);
+  }, [voiceCommand, dispatch]);
 
   const commands = [
     {
-      command: "* go",
+      command: "*",
       callback: capital => {
-        setVoiceCommand(capital);
-        dispatch({ type: "INPUT_SUBMITTED", inputValue: capital });
-      }
-    },
-    {
-      command: "reset",
-      callback: () => {
-        SpeechRecognition.stopListening();
-        resetTranscript();
-        setVoiceCommand("");
+        const similarityBetweenTranscriptdAndCorrect = stringSimilarity.compareTwoStrings(
+          capital.toLowerCase(),
+          currentCountry.capital.toLowerCase()
+        );
+        const isVoiceAnswerTrue = similarityBetweenTranscriptdAndCorrect > 0;
+        const voiceCommandTosubmit = isVoiceAnswerTrue
+          ? currentCountry.capital
+          : capital;
+        setVoiceCommand(voiceCommandTosubmit);
       }
     }
   ];
-
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
-  return voiceCommand;
+
+  return [voiceCommand, setVoiceCommand];
 }
 
 export default useVoiceTyping;

@@ -14,7 +14,11 @@ export default function Game({
   dispatch
 }) {
   const [inputVal, setInputVal] = useState("");
-  const voiceCommand = useVoiceTyping(dispatch);
+  const [voiceCommand, setVoiceCommand] = useVoiceTyping(
+    dispatch,
+    setInputVal,
+    currentCountry
+  );
   useGetCountries(dispatch);
 
   const handleChange = e => {
@@ -25,6 +29,7 @@ export default function Game({
       const trimmedVal = inputVal.trim();
       dispatch({ type: "INPUT_SUBMITTED", inputValue: trimmedVal });
       setInputVal("");
+      setVoiceCommand("");
     }
   };
 
