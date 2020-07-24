@@ -51,6 +51,11 @@ function filterCountriesByContinents(countriesArr, continentsArr) {
   });
 }
 
+function capitaliseFirstLetter(s) {
+  if (typeof s !== "string") return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 const fetchStatus = {
   LOADING: "loading",
   SUCCESS: "success",
@@ -88,5 +93,6 @@ export {
   filterCountriesByDifficulty,
   filterCountriesByContinents,
   bonusTimeFromStreak,
-  populationPlusPerDifficulty
+  populationPlusPerDifficulty,
+  capitaliseFirstLetter
 };

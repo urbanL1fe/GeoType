@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import { capitaliseFirstLetter } from "../utils";
 
 function AnswerList({ answers }) {
   return (
@@ -15,7 +16,7 @@ function AnswerList({ answers }) {
         {answers.map((answer, id) => (
           <tr key={id}>
             <td>{answer.country}</td>
-            <td>{answer.userInput}</td>
+            <td>{capitaliseFirstLetter(answer.userInput)}</td>
             <td>{answer.capital}</td>
             <td>{answer.score}</td>
           </tr>
