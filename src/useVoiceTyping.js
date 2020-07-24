@@ -12,11 +12,11 @@ function useVoiceTyping(dispatch, setInputVal, currentCountry) {
     voiceCommand !== "" &&
       dispatch({ type: "INPUT_SUBMITTED", inputValue: voiceCommand });
     setTimeout(function() {
-      SpeechRecognition.stopListening();
       resetTranscript();
       setVoiceCommand("");
       setInputVal("");
     }, 500);
+    return () => SpeechRecognition.stopListening();
   }, [voiceCommand, dispatch]);
 
   const commands = [
