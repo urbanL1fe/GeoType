@@ -5,16 +5,18 @@ import { populationPlusPerDifficulty } from "../utils";
 function DifficultySelector({ onPicked }) {
   return (
     <>
-      <h3>Select game difficulty and start game</h3>
-      <button value="easy" onClick={onPicked}>
-        Easy(>{populationPlusPerDifficulty.EASY} people)
+      <div class='buttonWrapper'>
+      <button className='button green-gradient' value="easy" onClick={onPicked}>
+        Easy
       </button>
-      <button value="normal" onClick={onPicked}>
-        Normal(>{populationPlusPerDifficulty.NORMAL} people)
+      <button className='button orange-gradient' value="normal" onClick={onPicked}>
+        Normal
       </button>
-      <button value="hard" onClick={onPicked}>
-        Hard(All countries)
+      <button className='button red-gradient' value="hard" onClick={onPicked}>
+        Hard
       </button>
+      </div>
+        <h3>Select game difficulty and start game</h3>
     </>
   );
 }

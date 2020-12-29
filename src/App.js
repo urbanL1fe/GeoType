@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import "./styles.css";
 import {
   countriesReducer,
@@ -22,10 +22,18 @@ export default function App() {
     currentCountry,
     countriesLeft,
     answers,
-    streak
+    streak,
+    insetAppShadow,
   } = state;
+  const appClasses = `App ${insetAppShadow}`
+  
+  useEffect(()=>{
+    setTimeout(() => {
+       dispatch({type:'RESET_ANSWER_STYLE'})
+    }, 500);
+  },[insetAppShadow])
   return (
-    <div className="App">
+    <div className={appClasses}>
       {difficulty === "" && <Lobby dispatch={dispatch} />}
       {gStatus === gameStatus.PLAYING && (
         <Game

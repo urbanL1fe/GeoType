@@ -24,8 +24,8 @@ function Lobby({ dispatch }) {
 
   return (
     <>
-      <h1>GeoType</h1>
-      <h2>What's the Capital?</h2>
+      <h2>GeoType</h2>
+      <h1>What's the Capital?</h1>
       <ContinentsSelector
         checkedItems={checkedItems}
         onChange={handleContinentChange}

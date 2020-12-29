@@ -17,6 +17,7 @@ const initialCountriesReducerState = {
   gStatus: gameStatus.PREGAME,
   errorMessage: "",
   currentCountry: "",
+  insetAppShadow: '',
   score: 0,
   streak: 0
 };
@@ -69,6 +70,8 @@ function countriesReducer(state, action) {
       );
       const newCurrentCountry =
         newCountriesArr[randomPicker(newCountriesArr.length)];
+      const insetAppShadow = isAnswerCorrect ? 'green-inset' : 'red-inset'
+      console.log(insetAppShadow)   
       return {
         ...state,
         score: state.score + scoreChange,
@@ -81,15 +84,22 @@ function countriesReducer(state, action) {
             userInput: action.inputValue || "PASS",
             capital: state.currentCountry.capital,
             country: state.currentCountry.name,
-            score: scoreChange
+            score: scoreChange,
           }
-        ]
+        ],
+         insetAppShadow: insetAppShadow,
       };
     case "TIMES_UP":
     case "ALL_COUNTRIES_PLAYED":
       return {
         ...state,
-        gStatus: gameStatus.RESULTS
+        gStatus: gameStatus.RESULTS,
+        insetAppShadow:'',
+      };
+    case "RESET_ANSWER_STYLE":
+      return {
+        ...state,
+        insetAppShadow:'',
       };
     case "DIFFICULTY_PICKED":
       return {

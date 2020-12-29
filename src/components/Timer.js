@@ -25,7 +25,7 @@ function Timer({ dispatch, streak }) {
     return () => clearTimeout(timer);
   }, [counter, dispatch]);
 
-  return <p>{counter}</p>;
+  return <p className='timer'>{counter}</p>;
 }
 
 export default Timer;

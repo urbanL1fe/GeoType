@@ -28,7 +28,7 @@ function ContinentsSelector({ checkedItems, onChange }) {
 
   return (
     <div>
-      <p>What continents do you want to play?</p>
+      <h3>What continents do you want to play?</h3>
       {checkboxes.map(item => (
         <label key={item.key}>
           {item.name}
@@ -39,7 +39,7 @@ function ContinentsSelector({ checkedItems, onChange }) {
           />
         </label>
       ))}
-      <p>(Don't check anything for all continents)</p>
+      <p className="small-italic">(Don't check anything for all continents)</p>
     </div>
   );
 }
